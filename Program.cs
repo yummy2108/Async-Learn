@@ -12,11 +12,14 @@ namespace ConsoleApp3
             // DoWork();
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork));
+
+            Console.WriteLine("Is Background Thread? {0} ", Thread.CurrentThread.IsBackground);
         }
 
         private static void DoWork(object state)
         {
             Console.WriteLine("Current Thread: {0}", System.Threading.Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine("Is Background Thread? {0} ", Thread.CurrentThread.IsBackground);
         }
 
     }
