@@ -8,24 +8,16 @@ namespace ConsoleApp3
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine("Starting in the Main Method");
+            Console.WriteLine("Current Thread: {0}", System.Threading.Thread.CurrentThread.ManagedThreadId);
+            // DoWork();
 
-            var t1 = new Thread(new ThreadStart(DoWork));
-            t1.Start();
-
-            var t2 = new Thread(new ThreadStart(DoWork));
-            t2.Start();
-
-            var t3 = new Thread(new ThreadStart(DoWork));
-            t3.Start();
-
-            Console.WriteLine("Ending of the Main Method");
+            ThreadPool.QueueUserWorkItem(new WaitCallback(DoWork));
         }
 
-        private static void DoWork()
+        private static void DoWork(object state)
         {
-            int x = 10;
-            Console.WriteLine("Managed Thread ID : {0} says {1}", Thread.CurrentThread.ManagedThreadId, x);
+            Console.WriteLine("Current Thread: {0}", System.Threading.Thread.CurrentThread.ManagedThreadId);
         }
+
     }
 }
